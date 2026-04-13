@@ -1,9 +1,12 @@
 # Teamwork MCP Server
 
+> **Fork:** This is a private fork of [Teamwork/mcp](https://github.com/Teamwork/mcp) maintained at [jtmeunier87/teamwork-mcp](https://github.com/jtmeunier87/teamwork-mcp). Docker image: `ghcr.io/jtmeunier87/teamwork-mcp`.
+
+
 > Model Context Protocol server for Teamwork.com integration with Large Language
 > Models
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/teamwork/mcp)](https://goreportcard.com/report/github.com/teamwork/mcp)
+[![Go Report Card](https://goreportcard.com/badge/github.com/jtmeunier87/teamwork-mcp)](https://goreportcard.com/report/github.com/jtmeunier87/teamwork-mcp)
 [![Go](https://img.shields.io/badge/Go-1.26.0-blue.svg)](https://golang.org/)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io/)
 
