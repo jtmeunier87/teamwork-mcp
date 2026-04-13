@@ -190,10 +190,15 @@ jobs:
       - name: Create Release
         run: |
           version="${{ steps.resolve.outputs.version }}"
-          gh release create $version \
-            --generate-notes \
-            ${{ steps.previous-tag.outputs.tag != '' && format('--notes-start-tag {0}', steps.previous-tag.outputs.tag) || '' }} \
-            releases/dist/*
+          if gh release view "$version" > /dev/null 2>&1; then
+            echo "Release $version already exists — uploading assets only"
+            gh release upload "$version" releases/dist/* --clobber
+          else
+            gh release create $version \
+              --generate-notes \
+              ${{ steps.previous-tag.outputs.tag != '' && format('--notes-start-tag {0}', steps.previous-tag.outputs.tag) || '' }} \
+              releases/dist/*
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
