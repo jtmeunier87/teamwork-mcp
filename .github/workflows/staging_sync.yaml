@@ -1,34 +1,14 @@
-name: Staging sync
+# Disabled in fork — this workflow is for Teamwork internal staging infrastructure only.
+# See: https://github.com/Teamwork/mcp for the upstream version.
+name: Staging sync (disabled)
 on:
-  push:
-    branches:
-      - main
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
+  workflow_dispatch:
+    inputs:
+      noop:
+        description: 'This workflow is disabled in the fork'
+        required: false
 jobs:
-  sync:
+  noop:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Sync staging branch
-        run: |
-          git fetch origin
-          if git show-ref --verify --quiet refs/remotes/origin/staging; then
-            git checkout staging
-            git reset --hard origin/main
-          else
-            git checkout -b staging origin/main
-          fi
-          git push -f origin staging
+      - run: echo "Staging sync is disabled in this fork"
