@@ -5,7 +5,7 @@ package twprojects
 // The only reliable path is v1: PUT /tasks/{id}/complete.json and /uncomplete.json.
 // This is an intentional v1 exception — documented in percy-process/knowledge/api-behaviour.md.
 //
-// These tools are the primary additions in the jtmeunier87/teamwork-mcp-go fork.
+// These tools are the primary additions in the jtmeunier87/teamwork-mcp fork.
 // Upstream (Teamwork/mcp) does not implement task completion.
 
 import (
