@@ -1,6 +1,6 @@
 # Teamwork MCP Server
 
-> **Fork:** This is a private fork of [Teamwork/mcp](https://github.com/Teamwork/mcp) maintained at [jtmeunier87/teamwork-mcp](https://github.com/jtmeunier87/teamwork-mcp). Docker image: `ghcr.io/jtmeunier87/teamwork-mcp`.
+> **Fork:** This is a public fork of [Teamwork/mcp](https://github.com/Teamwork/mcp) maintained at [jtmeunier87/teamwork-mcp](https://github.com/jtmeunier87/teamwork-mcp). Docker image: `ghcr.io/jtmeunier87/teamwork-mcp`.
 
 
 > Model Context Protocol server for Teamwork.com integration with Large Language

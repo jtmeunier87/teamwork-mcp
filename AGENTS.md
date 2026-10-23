@@ -73,6 +73,7 @@ Common variables (subset; see command READMEs for complete lists):
 - Prefer running the STDIO server with `-read-only` by default during development.
 - For HTTP deployments, ensure TLS, least-privilege tokens, and sensible log levels.
 - Be careful with delete operations; keep them gated behind `allowDelete`.
+- Generic code only. This repository is public: never add anything specific to one organisation (hostnames, project, task list, tag or user names, IDs, or how a team uses Teamwork), not even in comments, tests or commit messages. Use neutral examples. The Guard workflow fails a push that contains a term from the `COMPANY_DENYLIST` secret.
 
 ## PR/commit guidance
 - Before commit: `gofmt -s -w .` (or run your editor’s Go format), `go vet ./...`, `go test ./...`.

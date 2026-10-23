@@ -3,7 +3,7 @@ package twprojects
 // NOTE: Teamwork's v3 API has no dedicated task completion endpoint.
 // The v3 PATCH /tasks/{id} with status:'completed' returns 400 for stage-0 tasks.
 // The only reliable path is v1: PUT /tasks/{id}/complete.json and /uncomplete.json.
-// This is an intentional v1 exception — documented in percy-process/knowledge/api-behaviour.md.
+// This is an intentional v1 exception.
 //
 // These tools are the primary additions in the jtmeunier87/teamwork-mcp fork.
 // Upstream (Teamwork/mcp) does not implement task completion.

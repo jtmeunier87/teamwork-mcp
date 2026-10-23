@@ -1,0 +1,58 @@
+name: Guard
+
+# Fails when the files, or the messages of the commits being pushed, contain a term from the
+# COMPANY_DENYLIST secret: a case-insensitive extended regex (e.g. "term-one|term-two") of
+# names that must never appear in this public repository. The terms live only in the secret,
+# so they are never committed here, and the log names only the file and line (or commit), not
+# the term. Secrets and tokens are caught by GitHub secret scanning and push protection.
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  denylist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: No denylisted terms in files or commit messages
+        env:
+          DENYLIST: ${{ secrets.COMPANY_DENYLIST }}
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          if [ -z "$DENYLIST" ]; then
+            echo "::error::The COMPANY_DENYLIST secret is not set (Settings > Secrets and variables > Actions)."
+            exit 1
+          fi
+          failed=0
+
+          files=$(git grep -I -i -n -E -e "$DENYLIST" -- . | cut -d: -f1,2) || true
+          if [ -n "$files" ]; then
+            echo "::error::Denylisted terms in these files (file:line; the term is not shown):"
+            echo "$files"
+            failed=1
+          fi
+
+          if [ "$EVENT" = pull_request ]; then
+            range="$BASE..HEAD"
+          elif [ -n "$BEFORE" ] && ! [[ "$BEFORE" =~ ^0+$ ]]; then
+            range="$BEFORE..HEAD"
+          else
+            range="origin/$DEFAULT_BRANCH..HEAD"
+          fi
+          for c in $(git rev-list "$range"); do
+            if git log -1 --format=%B "$c" | grep -q -i -E -e "$DENYLIST"; then
+              echo "::error::Denylisted term in the message of commit $c"
+              failed=1
+            fi
+          done
+
+          exit $failed
